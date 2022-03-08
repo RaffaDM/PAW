@@ -1,0 +1,1225 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Swagger demo for the item REST api demonstrated in class.",
+    "version": "1.0.0",
+    "title": "Swagger Item API",
+    "contact": {
+      "email": "MelhorGrupo@estg.ipp.pt"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication"
+    },
+    {
+      "name": "Admin",
+      "description": "Operations about Admin"
+    },
+    {
+      "name": "Promoter",
+      "description": "Operations about Promoter"
+    },
+    {
+      "name": "User",
+      "description": "Operations about user"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login into a account",
+        "parameters": [
+          {
+            "name": "login",
+            "in": "body",
+            "description": "Example of login",
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "description": "login",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Login",
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register, create a User or Promoter",
+        "parameters": [
+          {
+            "name": "register",
+            "in": "body",
+            "description": "Example of register",
+            "schema": {
+              "$ref": "#/definitions/register"
+            }
+          }
+        ],
+        "description": "register",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Register -> creates a User or Promoter",
+            "schema": {
+              "$ref": "#/definitions/register"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/admin/create": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Creates a User or Promoter",
+        "parameters": [
+          {
+            "name": "Create User or Promtoer",
+            "in": "body",
+            "description": "Example of User or Promoter that we want to create",
+            "schema": {
+              "$ref": "#/definitions/register"
+            }
+          }
+        ],
+        "description": "Creates a User or Promoter",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Create",
+            "schema": {
+              "$ref": "#/definitions/register"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/admin/user/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID of user that we want to find",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Update an existing User",
+        "description": "Updates a valid User on the database.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be edited to the database.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "User Updated",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Deletes an User",
+        "description": "Deletes an User from the database",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Find User by ID",
+        "description": "Returns a single User by ID",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User selected",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/admin/promoter/{promoterId}": {
+      "parameters": [
+        {
+          "name": "promoterId",
+          "in": "path",
+          "required": true,
+          "description": "ID of promoter that we want to find",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Update an existing Promoter",
+        "description": "Updates a valid Promoter on the database.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Promoter object that needs to be edited to the database.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Promoter"
+            }
+          }
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Promoter Updated",
+            "schema": {
+              "$ref": "#/definitions/Promoter"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Deletes an Promoter",
+        "description": "Deletes an Promoter from the database",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Promoter deleted",
+            "schema": {
+              "$ref": "#/definitions/Promoter"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Find User by ID",
+        "description": "Returns a single User by ID",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User selected",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/admin/changePass": {
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Update admin Password",
+        "description": "Updates admin Password.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updates admin Password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin Password Updated",
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },"/admin/getAdmin": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get the current admin",
+        "description": "Get the current admin from the token",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updates admin Password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin Password Updated",
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/promoter/showAll": {
+      "get": {
+        "tags": [
+          "Promoter"
+        ],
+        "summary": "Get all Events of all promoters",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/promoter/showMy": {
+      "get": {
+        "tags": [
+          "Promoter"
+        ],
+        "summary": "Get all Events of the promoter",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },"/promoter/profile": {
+      "get": {
+        "tags": [
+          "Promoter"
+        ],
+        "summary": "Get Promoter from token id",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Promoter"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Promoter"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "profile to update",
+            "schema": {
+              "$ref": "#/definitions/Promoter"
+            }
+          }
+        ],
+        "summary": "Update promoter profile",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Promoter"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/promoter/createEvent": {
+      "post": {
+        "tags": [
+          "Promoter"
+        ],
+        "summary": "Creates a Event",
+        "parameters": [
+          {
+            "name": "Event",
+            "in": "body",
+            "description": "Events",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        ],
+        "description": "Creates Event",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Create",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/promoter/event/{eventId}": {
+      "parameters": [
+        {
+          "name": "eventId",
+          "in": "path",
+          "required": true,
+          "description": "ID of event that we want to find",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Promoter"
+        ],
+        "summary": "Update an existing event",
+        "description": "Updates a valid event on the database.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Event object that needs to be edited to the database.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Event Updated",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Promoter"
+        ],
+        "summary": "Deletes an Event",
+        "description": "Deletes an Event from the database",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Event deleted",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Promoter"
+        ],
+        "summary": "Find Event by ID",
+        "description": "Returns a single Event by ID",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Event selected",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/promoter/eventsAct": {
+      "get": {
+        "tags": [
+          "Promoter"
+        ],
+        "summary": "Get all activated Events of one promoter ",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/user/buyTicket/{eventId}": {
+      "parameters": [
+        {
+          "name": "eventId",
+          "in": "path",
+          "required": true,
+          "description": "ID of event that we want to find",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update an existing event",
+        "description": "Updates a valid event on the database.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Event Updated",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ] 
+      }
+    },
+    "/user/myTickets": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all activated Events of one promoter ",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/user/events": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all activated Events ",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/user/showEvent/{eventId}": {
+      "parameters": [
+        {
+          "name": "eventId",
+          "in": "path",
+          "required": true,
+          "description": "ID of event that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "To see a Event",
+        "description": "To see a Event",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a Event",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ] 
+      }
+    },
+    "/user/cancelTicket/{eventId}": {
+      "parameters": [
+        {
+          "name": "eventId",
+          "in": "path",
+          "required": true,
+          "description": "ID of event that we want to find",
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Cancel an existing ticket",
+        "description": "Cancel a valid ticket on the database.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket Deleted",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          }
+         
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ] 
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get User from token id",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],"parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "profile to update",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "summary": "Update user profile",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "security": [
+          {
+            "item_jwt_auth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "item_jwt_auth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "x-access-token"
+    }
+  },
+  "definitions": {
+    "Admin": {
+      "example": {
+        "email": "admin@gmail.com",
+        "password": "admin"
+      },
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "example": "example@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password.3124"
+        }
+      }
+    },
+    "Promoter": {
+      "example": {
+        "fname": "Rita Ora",
+        "lname": "Malhoa",
+        "gender": "F",
+        "password": "promoterPassowrd",
+        "email": "promoter@gmail.com",
+        "permission": 2,
+        "nEvents": 0
+      },
+      "type": "object",
+      "required": [
+        "fname",
+        "lname",
+        "gender",
+        "password",
+        "email",
+        "permission",
+        "nEvents"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "fname": {
+          "type": "string",
+          "example": "Rita"
+        },
+        "lname": {
+          "type": "string",
+          "example": "Malhoa"
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "M",
+            "F"
+          ]
+        },
+        "password": {
+          "type": "string",
+          "example": "password.3162"
+        },
+        "email": {
+          "type": "string",
+          "example": "promoter@gmail.com"
+        },
+        "permission": {
+          "type": "number",
+          "example": 2
+        },
+        "nEvents": {
+          "type": "number",
+          "description": "Number of events of the Promoter"
+        }
+      }
+    },
+    "User": {
+      "example": {
+        "fname": "Rita Ora",
+        "lname": "Malhoa",
+        "gender": "F",
+        "password": "userPassowrd",
+        "email": "User@gmail.com",
+        "permission": 3,
+        "nCancel": 0,
+        "timeStamp": "2016-05-18T16:00:00Z",
+        "suspended":"false"
+      },
+      "type": "object",
+      "required": [
+        "fname",
+        "lname",
+        "gender",
+        "password",
+        "email",
+        "permission",
+        "nCancel",
+        "timeStamp",
+        "suspended"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "fname": {
+          "type": "string",
+          "example": "Rita"
+        },
+        "lname": {
+          "type": "string",
+          "example": "Malhoa"
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "M",
+            "F"
+          ]
+        },
+        "password": {
+          "type": "string",
+          "example": "password.3162"
+        },
+        "email": {
+          "type": "string",
+          "example": "user@gmail.com"
+        },
+        "permission": {
+          "type": "number",
+          "example": 2
+        },
+        "nCancel": {
+          "type": "number",
+          "description": "Number of events of Cancels of the User"
+        },
+        "timeStamp": {
+          "type": "Date",
+          "description": "to check if user cancels 5 tickets in the same month"
+        },
+        "suspended": {
+          "type": "Boolean",
+          "description": "to check if user cancels 5 tickets in the same month"
+        }
+      }
+    },
+    "Events": {
+      "example": {
+        "name": "Rita Ora Concert",
+        "category":"Concert",
+        "capacity": 20,
+        "current": 10,
+        "address": {
+          "street": "Rua dos reis",
+          "post_code": "4400-334",
+          "city": "Porto",
+          "country": "Portugal"
+        },
+        "date": "2016-05-18T16:00:00Z",
+        "price": 22.3,
+        "activate": true
+      },
+      "type": "object",
+      "required": [
+        "name",
+        "category",
+        "address",
+        "capacity",
+        "current",
+        "date",
+        "price",
+        "activate",
+        "id_Promoter"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Concert", "SunSet","Party","Meeting"]
+        },
+        "name": {
+          "type": "string",
+          "example": "Event name"
+        },
+        "address":{
+          "type":"object",
+          "properties":{
+            "street":{
+              "type":"string",
+              "example":"rua dos reis"
+            },
+            "post_code":{
+              "type":"string",
+              "example":"4400-322"
+            },
+            "city":{
+              "type":"string",
+              "example":"Porto"
+            },
+            "country":{
+              "type":"string",
+              "example":"Portugal"
+            }
+          }
+        },
+        "capacity": {
+          "type": "number",
+          "example": 123
+        },
+        "current": {
+          "type": "number",
+          "description": "number of current occupied capacity"
+        },
+        "date": {
+          "type": "date",
+          "description": "Date of the event"
+        },
+        "price": {
+          "type": "number",
+          "example": 12
+        },
+        "activate": {
+          "type": "boolean",
+          "description": "If the event is active or not"
+        },
+        "id_Promoter": {
+          "type": "string",
+          "description": "Id of the creater promoter of the event"
+        }
+      }
+    },
+    "Ticket": {
+      "example": {
+        "idUser": "60b4f064f131d04dc0cef52e",
+        "idEvent": "60b4f154dc90c9021407244a"
+      },
+      "type": "object",
+      "required": [
+        "idUser",
+        "idEvent"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "idUser": {
+          "type": "string",
+          "example": "60b4f064f131d04dc0cef52e"
+        },
+        "idEvent": {
+          "type": "string",
+          "example": "60b4f154dc90c9021407244a"
+        }
+      }
+    },
+    "login": {
+      "example": {
+        "email": "example@gmail.com",
+        "password": "examplePassword"
+      },
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "example": "password.3162"
+        },
+        "email": {
+          "type": "string",
+          "example": "example@gmail.com"
+        }
+      }
+    },
+    "register": {
+      "example": {
+        "fname": "Rita Ora",
+        "lname": "Malhoa",
+        "gender": "F",
+        "password": "examplePassowrd",
+        "email": "example@gmail.com",
+        "permission": 2
+      },
+      "type": "object",
+      "required": [
+        "fname",
+        "lname",
+        "gender",
+        "password",
+        "email",
+        "permission"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "fname": {
+          "type": "string",
+          "example": "Rita"
+        },
+        "lname": {
+          "type": "string",
+          "example": "Malhoa"
+        },
+        "gender": {
+          "type": "string",
+          "example": "M || F"
+        },
+        "password": {
+          "type": "string",
+          "example": "password.3162"
+        },
+        "email": {
+          "type": "string",
+          "example": "example@gmail.com"
+        },
+        "permission": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    }
+  }
+}
